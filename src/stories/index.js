@@ -13,6 +13,10 @@ const typography = new Typography(bootstrap)
 // JS web apps.
 typography.injectStyles()
 
+const divStyle = {
+  display: 'flex'
+}
+
 storiesOf('Feed', module)
 	.addDecorator(function(story) {
 		return <Provider story={story()} />
@@ -25,4 +29,13 @@ storiesOf('Feed', module)
 	})
 	.add('Subreddit Feeds', function() {
 		return <SubRedditFeeds keywords={['Design', 'StarWars', 'javascript']} />
+	})
+	.add('Subreddit, Twitter and Gist Feeds', function() {
+		return (
+			<div style={divStyle}>
+				<SubRedditFeeds keywords={['Design']} />
+				<TwitterFeeds keywords={['jsconf']} />
+				<GistFeeds gistUsers={['gaearon']} />
+			</div>
+		)
 	})
