@@ -24,5 +24,5 @@ storiesOf('Feed', module)
 		return <TwitterFeeds keywords={['javascript', 'jsconf', 'reactjs']} />
 	})
 	.add('Subreddit Feeds', function() {
-		return <SubRedditFeeds keywords={['javascript', 'why', 'reactjs']} />
+		return <SubRedditFeeds keywords={['Design', 'StarWars', 'javascript']} />
 	})

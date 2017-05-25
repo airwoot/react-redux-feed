@@ -1,7 +1,6 @@
 import { isNil } from 'lodash'
 
 const API_ENDPOINT = function(keyword) {
-	console.log(keyword)
 	return `https://www.reddit.com/r/${keyword}.json`
 }
 

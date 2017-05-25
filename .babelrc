@@ -1,4 +1,7 @@
 {
   "presets": ["babel-preset-react-app"],
-  "plugins":  ["babel-plugin-transform-es2015-modules-commonjs"]
+  "plugins":  ["babel-plugin-transform-es2015-modules-commonjs"],
+	"env": {
+		"NODE_ENV": "production"
+	}
 }

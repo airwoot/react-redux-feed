@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Feed } from '../../../Feed'
+import { Feed } from 'react-redux-feed'
 import Subreddit from '../../components/Subreddit'
 import TweetIcon from 'react-icons/lib/fa/twitter'
 import getPaginationConfigs from '../../modules/paginations/Subreddit/config'
