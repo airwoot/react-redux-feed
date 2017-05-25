@@ -67,7 +67,7 @@ export default function Tweet(props) {
 
 					<A
 						target="_blank"
-						href={`https://twitter.com/${id_str}`}
+						href={`https://twitter.com/statuses/${id_str}`}
 						{...tweetMetaStyle}
 					>
 						{distanceInWordsToNow(created_at)}
