@@ -1,16 +1,17 @@
 import { isNil } from 'lodash'
 
 const API_ENDPOINT = function(keyword) {
-	return `https://dist-dfwbzmpgwb.now.sh/api/tweets/${keyword}`
+	console.log(keyword)
+	return `https://www.reddit.com/r/${keyword}.json`
 }
 
 export default function getPaginationConfigs(keyword) {
 	return {
-		getItems(searchResults) {
-			if (isNil(searchResults)) {
+		getItems(results) {
+			if (isNil(results)) {
 				return []
 			} else {
-				return searchResults.statuses
+				return results.data.children
 			}
 		},
 		getEndpoint(paginationState, direction = 'initial') {
@@ -21,8 +22,8 @@ export default function getPaginationConfigs(keyword) {
 			}
 		},
 		updateEndpoint(response, direction = 'initial') {
-			return response.json().then(function(tweets) {
-				return `${API_ENDPOINT(keyword)}${tweets.search_metadata.next_results}`
+			return response.json().then(function(results) {
+				return `${API_ENDPOINT(keyword)}?after=${results.data.after}`
 			})
 		},
 		hasMoreItems(response, direction = 'initial') {
@@ -30,9 +31,8 @@ export default function getPaginationConfigs(keyword) {
 				return false
 			}
 
-			return response.json().then(function(searchResults) {
-				return searchResults.search_metadata.next_results &&
-					searchResults.search_metadata.next_results.length > 0
+			return response.json().then(function(results) {
+				return results.data.after
 					? true
 					: false
 			})

@@ -3,7 +3,7 @@ import { storiesOf, action, linkTo } from '@kadira/storybook'
 import Provider from './decorators/reduxStore'
 import GistFeeds from './containers/GistFeeds'
 import TwitterFeeds from './containers/TwitterFeeds'
-
+import SubRedditFeeds from './containers/SubRedditFeeds'
 import Typography from 'typography'
 import bootstrap from './typography-theme-bootstrap'
 
@@ -22,4 +22,7 @@ storiesOf('Feed', module)
 	})
 	.add('Twitter Keyword Streams', function() {
 		return <TwitterFeeds keywords={['javascript', 'jsconf', 'reactjs']} />
+	})
+	.add('Subreddit Feeds', function() {
+		return <SubRedditFeeds keywords={['javascript', 'why', 'reactjs']} />
 	})
