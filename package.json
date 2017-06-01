@@ -23,17 +23,24 @@
     "@kadira/storybook": "^2.21.0",
     "@kadira/storybook-addon-knobs": "^1.7.1",
     "babel-cli": "^6.24.1",
+    "babel-jest": "^20.0.3",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "date-fns": "^1.28.4",
+    "enzyme": "^2.8.2",
     "express": "^4.15.3",
+    "husky": "^0.13.3",
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4",
+    "jest-fetch-mock": "^1.1.1",
+    "lint-staged": "^3.5.0",
     "np": "^2.15.0",
     "npm": "^4.6.1",
     "parse-link-header": "^1.0.0",
+    "react-addons-test-utils": "^15.5.1",
     "react-icons": "^2.2.4",
     "react-scripts": "1.0.5",
     "react-spinkit": "^2.1.2",
+    "react-test-renderer": "^15.5.4",
     "twit": "^2.2.5",
     "typography": "^0.15.10"
   },
@@ -49,7 +56,43 @@
     "dev-server": "node ./server/index.js",
     "release": "np --yolo --no-yarn --no-publish",
     "test:jest": "jest --no-watchman --runInBand",
-    "watch:jest": "jest --no-watchman --watch"
+    "watch:jest": "jest --no-watchman --watch",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.test.js": [
+      "jest --no-watchman --runInBand"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFiles": [
+      "<rootDir>/config/jest/setup.js"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|css|json)$)": "<rootDir>/config/jest/fileTransformer.js"
+    },
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "__mocks__",
+      "helpers"
+    ],
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.js$"
+    ],
+    "collectCoverageFrom": [
+      "src/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 2,
+        "branches": 0.5,
+        "functions": 1,
+        "lines": 2
+      }
+    }
   },
   "repository": {
     "type": "git",
