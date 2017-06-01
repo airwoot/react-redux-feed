@@ -1,4 +1,4 @@
-# React Redux Feed
+# React Redux Feed [![npm version](https://badge.fury.io/js/react-redux-feed.svg)](https://www.npmjs.com/package/react-redux-feed) [![Build Status](https://travis-ci.org/airwoot/react-redux-feed.svg?branch=master)](https://travis-ci.org/airwoot/react-redux-feed)
 
 *The list and the items in them have distinct essence.*
 
