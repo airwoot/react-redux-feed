@@ -48,8 +48,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "dist": "babel lib -d dist --env production",
-    "prepublish": "babel lib -d dist --env production",
+    "dist": "NODE_ENV=production babel lib -d dist --env production",
+    "prepublish": "NODE_ENV=production babel lib -d dist --env production",
     "test": "jest --no-watchman --runInBand",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
