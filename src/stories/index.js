@@ -25,7 +25,7 @@ storiesOf('Feed', module)
     return <GistFeeds gistUsers={['gaearon', 'mxstbr', 'developit']} />
   })
   .add('Twitter Keyword Streams', function() {
-    return <TwitterFeeds keywords={['react', 'redux', 'react-router']} />
+    return <TwitterFeeds keywords={['reactjs', 'reduxjs', 'react-router']} />
   })
   .add('Subreddit Feeds', function() {
     return <SubRedditFeeds keywords={['reactjs', 'reduxjs', 'elm']} />
