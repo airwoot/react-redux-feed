@@ -8,7 +8,7 @@ import ErrorIcon from 'react-icons/lib/fa/exclamation-circle';
 import { isNil } from 'lodash'
 
 const API_ENDPOINT = function(keyword) {
-  return `http://localhost:3000/tweets/${keyword}`
+  return `https://hwk73-twitter-apis.now.sh/api/search-tweets/${keyword}`
 }
 
 export default function getFeedConfig(keyword) {
