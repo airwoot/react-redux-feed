@@ -10,6 +10,8 @@ This separation of concern prevents redundant code for multiple feeds in your ap
 
 The library also provides a well-thought data shape for your redux store.
 
+You can watch a [Live Demo](https://react-redux-feeds.now.sh) here.
+
 ## Who will use this?
 
 Any app which displays multiple feeds within the app will benefit from this repo. The feeds are stored in a data shape which are [*normalizr*](https://github.com/paularmstrong/normalizr) friendly. Normalizr helps to store data without redundancy.
