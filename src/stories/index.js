@@ -22,20 +22,20 @@ storiesOf('Feed', module)
     return <Provider story={story()} />
   })
   .add('Public Gists', function() {
-    return <GistFeeds gistUsers={['gaearon', 'wycats', 'developit']} />
+    return <GistFeeds gistUsers={['gaearon', 'mxstbr', 'developit']} />
   })
   .add('Twitter Keyword Streams', function() {
-    return <TwitterFeeds keywords={['javascript', 'jsconf', 'reactjs']} />
+    return <TwitterFeeds keywords={['react', 'redux', 'react-router']} />
   })
   .add('Subreddit Feeds', function() {
-    return <SubRedditFeeds keywords={['Design', 'StarWars', 'javascript']} />
+    return <SubRedditFeeds keywords={['reactjs', 'reduxjs', 'elm']} />
   })
   .add('Subreddit, Twitter and Gist Feeds', function() {
     return (
       <div style={divStyle}>
-        <SubRedditFeeds keywords={['Design']} />
-        <TwitterFeeds keywords={['jsconf']} />
-        <GistFeeds gistUsers={['gaearon']} />
+        <SubRedditFeeds keywords={['reactjs']} />
+        <TwitterFeeds keywords={['react']} />
+        <GistFeeds gistUsers={['acdlite']} />
       </div>
     )
   })
