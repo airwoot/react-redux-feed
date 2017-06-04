@@ -9,10 +9,12 @@
 # production
 /build
 
+# documenation-build
+/storybook-static
+
 # misc
 .DS_Store
 .env
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/server/.twitterAuth.js
