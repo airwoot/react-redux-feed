@@ -14,6 +14,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
+var _normalizr = require('normalizr');
+
 var _actions = require('../actions');
 
 var _reducers = require('../reducers');
@@ -30,6 +32,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   var moreItems = state.feeds.paginations[feedName] ? state.feeds.paginations[feedName].below.hasMoreItems : false;
 
   var error;
+
+  var itemSchema = ownProps.itemSchema || new schema.Entity('items');
 
   if (state.feeds.errors[feedName] !== undefined) {
     var feedError = state.feeds.errors[feedName];
@@ -49,8 +53,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   // if the feed has been already mounted, our
   // redux store will have an corresponding state slice
   // for the feed
-  if (state[_reducers.FEED_REDUCER_KEY].entities[feedName]) {
-    items = state.feeds.entities[feedName];
+  if (state[_reducers.FEED_REDUCER_KEY].relationships[feedName]) {
+    items = (0, _normalizr.denormalize)(state[_reducers.FEED_REDUCER_KEY].relationships[feedName], [itemSchema], state[_reducers.FEED_REDUCER_KEY].entities);
   }
 
   return _extends({
@@ -63,16 +67,12 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   var feedName = ownProps.name;
-  var getItems = ownProps.getItems;
-  var getInitialEndpoint = ownProps.getInitialEndpoint;
-  var updateEndpoint = ownProps.updateEndpoint;
-  var hasMoreItems = ownProps.hasMoreItems;
 
   return {
     fetchFeed: function fetchFeed() {
       var direction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'initial';
 
-      dispatch((0, _actions.fetchFeedThunkCreator)(feedName, direction, getItems, getInitialEndpoint, updateEndpoint, hasMoreItems));
+      dispatch((0, _actions.fetchFeedThunkCreator)(_extends({ feedName: feedName, direction: direction }, ownProps)));
     }
   };
 };

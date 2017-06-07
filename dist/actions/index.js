@@ -4,6 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchFeedThunkCreator = exports.UPDATE_PAGINATION = exports.ERROR_RECEIVE_FEED = exports.SUCCESS_RECEIVE_FEED = exports.REQUEST_FEED = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.requestFeedActionCreator = requestFeedActionCreator;
 exports.receiveFeedActionCreator = receiveFeedActionCreator;
 exports.errorFeedActionCreator = errorFeedActionCreator;
@@ -15,6 +18,8 @@ var _isUrl = require('is-url');
 var _isUrl2 = _interopRequireDefault(_isUrl);
 
 var _reducers = require('../reducers');
+
+var _normalizr = require('normalizr');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36,13 +41,12 @@ function requestFeedActionCreator(feedName, direction, endpoint) {
   };
 }
 
-function receiveFeedActionCreator(feedName, direction, items) {
+function receiveFeedActionCreator(feedName, direction, data) {
   return {
     type: SUCCESS_RECEIVE_FEED,
-    payload: {
-      feedName: feedName,
-      items: items
-    },
+    payload: _extends({
+      feedName: feedName
+    }, data),
     meta: {
       direction: direction
     }
@@ -81,22 +85,35 @@ function getPaginationDetails(state, feedName) {
   return state[_reducers.FEED_REDUCER_KEY].paginations[feedName];
 }
 
-var fetchFeedThunkCreator = exports.fetchFeedThunkCreator = function fetchFeedThunkCreator() {
+function getNormalizedItems(_ref) {
+  var results = _ref.results;
+  var getItems = _ref.getItems;
+  var itemSchema = _ref.itemSchema;
+  var _ref$itemIdKey = _ref.itemIdKey;
+  var itemIdKey = _ref$itemIdKey === undefined ? 'id' : _ref$itemIdKey;
+
+  if (!(itemSchema instanceof _normalizr.schema.Entity)) {
+    itemSchema = new _normalizr.schema.Entity('items', {}, {
+      idAttribute: itemIdKey
+    });
+  }
+
+  return (0, _normalizr.normalize)(getItems(results), [itemSchema]);
+}
+
+var fetchFeedThunkCreator = exports.fetchFeedThunkCreator = function fetchFeedThunkCreator(config) {
   var defaultGetItems = function defaultGetItems(items) {
     return items;
   };
-
-  for (var _len = arguments.length, config = Array(_len), _key = 0; _key < _len; _key++) {
-    config[_key] = arguments[_key];
-  }
-
-  var feedName = config[0];
-  var direction = config[1];
-  var _config$ = config[2];
-  var getItems = _config$ === undefined ? defaultGetItems : _config$;
-  var getInitialEndpoint = config[3];
-  var updateEndpoint = config[4];
-  var hasMoreItems = config[5];
+  var feedName = config.feedName;
+  var direction = config.direction;
+  var _config$getItems = config.getItems;
+  var getItems = _config$getItems === undefined ? defaultGetItems : _config$getItems;
+  var getInitialEndpoint = config.getInitialEndpoint;
+  var updateEndpoint = config.updateEndpoint;
+  var hasMoreItems = config.hasMoreItems;
+  var itemSchema = config.itemSchema;
+  var itemIdKey = config.itemIdKey;
 
 
   return function fetchFeedThunk(dispatch, getState) {
@@ -139,12 +156,19 @@ var fetchFeedThunkCreator = exports.fetchFeedThunkCreator = function fetchFeedTh
         var items = getItems(results);
         var nextPageUrl = updateEndpoint({ headers: headers, results: results, direction: direction });
         var moreItems = hasMoreItems({ headers: headers, results: results, direction: direction });
+        var normalizedItems = getNormalizedItems({
+          results: results,
+          getItems: getItems,
+          itemSchema: itemSchema,
+          itemIdKey: itemIdKey
+        });
         // console.log(`
         //   New endpoint to update -> ${nextPageUrl} ${results} from ${endpoint}
         //   New items are present? ${moreItems}
         // `);
         dispatch(updatePaginationDetails(feedName, direction, nextPageUrl, moreItems));
-        dispatch(receiveFeedActionCreator(feedName, direction, items));
+
+        dispatch(receiveFeedActionCreator(feedName, direction, normalizedItems));
       });
     }).catch(function dispatchFailureFetchAction(error) {
       dispatch(errorFeedActionCreator(feedName, direction, error.message));

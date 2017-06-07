@@ -11,6 +11,10 @@ var _entities = require('./entities');
 
 var _entities2 = _interopRequireDefault(_entities);
 
+var _relationships = require('./relationships');
+
+var _relationships2 = _interopRequireDefault(_relationships);
+
 var _paginations = require('./paginations');
 
 var _paginations2 = _interopRequireDefault(_paginations);
@@ -23,6 +27,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = (0, _redux.combineReducers)({
   entities: _entities2.default,
+  relationships: _relationships2.default,
   paginations: _paginations2.default,
   errors: _errors2.default
 });
