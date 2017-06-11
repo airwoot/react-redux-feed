@@ -1,6 +1,8 @@
 import React from 'react'
 import { storiesOf, action, linkTo } from '@kadira/storybook'
 import Provider from './decorators/reduxStore'
+import SimpleFeed from './containers/SimpleFeed'
+import FeedWithPagination from './containers/FeedWithPagination'
 import GistFeeds from './containers/GistFeeds'
 import TwitterFeeds from './containers/TwitterFeeds'
 import SubRedditFeeds from './containers/SubRedditFeeds'
@@ -20,6 +22,12 @@ const divStyle = {
 storiesOf('Feed', module)
   .addDecorator(function(story) {
     return <Provider story={story()} />
+  })
+  .add('Simple Feed', function() {
+    return <SimpleFeed />
+  })
+  .add('Feed With Pagination', function() {
+    return <FeedWithPagination />
   })
   .add('Public Gists', function() {
     return <GistFeeds gistUsers={['gaearon', 'mxstbr', 'developit']} />
