@@ -44,7 +44,7 @@ export default function getFeedConfig(user) {
 			return API_ENDPOINT(user)
 		},
 		updateEndpoint({headers}) {
-			var details = parseLinkHeader(headers.get('Link'))
+      var details = parseLinkHeader(headers.link)
 
 			if (isNil(details) || !details.next) {
 				return ''
@@ -57,8 +57,8 @@ export default function getFeedConfig(user) {
 				return false
 			}
 
-			var details = parseLinkHeader(headers.get('Link'))
 			var moreItems
+      var details = parseLinkHeader(headers.link)
 
 			// does not have details
 			if (isNil(details) || !details.last) {
