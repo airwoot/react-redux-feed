@@ -1,7 +1,7 @@
 {
   "name": "react-redux-feed",
   "description": "An higher order component to create and maintain feeds with react and redux from any data source",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "author": "Arijit Bhattacharya <hoodwink73@live.com>",
   "user": "hoodwink73",
   "license": "MIT",
