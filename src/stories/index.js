@@ -3,6 +3,7 @@ import { storiesOf, action, linkTo } from '@kadira/storybook'
 import Provider from './decorators/reduxStore'
 import SimpleFeed from './containers/SimpleFeed'
 import FeedWithPagination from './containers/FeedWithPagination'
+import FeedWithSchema from './containers/FeedWithSchema'
 import GistFeeds from './containers/GistFeeds'
 import TwitterFeeds from './containers/TwitterFeeds'
 import SubRedditFeeds from './containers/SubRedditFeeds'
@@ -28,6 +29,9 @@ storiesOf('Feed', module)
   })
   .add('Feed With Pagination', function() {
     return <FeedWithPagination />
+  })
+  .add('Feed With Schema', function() {
+    return <FeedWithSchema />
   })
   .add('Public Gists', function() {
     return <GistFeeds gistUsers={['gaearon', 'mxstbr', 'developit']} />
